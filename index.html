@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Open Weather</title>
+<!-- Посилання на таблицю стилів для розділів документу -->
+<link href="https://fonts.googleapis.com/css?family=Faster+One" rel="styleshe
+et">
+<link rel="stylesheet" href="ajax.css">
+<style>
+    body{
+        background-color:cadetblue;
+    }
+</style>
+</head>
+<body>
+<!--В цих розділах документу будуть дані про погоду-->
+<header>
+</header>
+<section>
+</section>
+<script type="text/javascript">
+var header = document.querySelector('header');
+var section = document.querySelector('section');
+//Запит погоди для міста Чорнухи
+var requestURL = 'http://api.openweathermap.org/data/2.5/weather?q=Chornukhy';
+//До запиту додається власний API Key
+requestURL = requestURL+'&appid=9eb569fe8c1b09d651aeb64b2ec94220';
+var request = new XMLHttpRequest();
+request.open('GET', requestURL);
+request.responseType = 'json';
+//Відправка запиту
+request.send();
+request.onload = function()
+//Ця функція виконується після отримання відповіді
+{
+var cityweather_json = request.response;
+showWeather(cityweather_json);
+}
+function showWeather(jsonObj)
+//Виведення даних щодо погоди
+{
+var d = new Date();
+var sHead="Чорнухи, поточна дата: "+ d.toDateString(d)+" р. ";
+//Доступ до даних отриманого JSON-об'єкта спирається на його ієрархічну структуру
+sHead=sHead+"Довгота: "+jsonObj.coord.lon+" Широта: "+jsonObj.coord.lat;
+var myArticle = document.createElement('article');
+var myH1 = document.createElement('h1');
+myH1.textContent=sHead;
+myArticle.appendChild(myH1);
+//Інформація про місто буде в заголовку секції
+section.appendChild(myArticle);
+//Дані погоди будуть у звичайних рядках
+var myArticle = document.createElement('article');
+var myPara1 = document.createElement('p');
+var myPara2 = document.createElement('p');
+var myPara3 = document.createElement('p');
+var myPara4 = document.createElement('p');
+//Переводимо у градуси Цельсія
+var t1=Math.round((jsonObj.main.temp-273.16)*10)/10;
+var t2=Math.round((jsonObj.main.feels_like-273.16)*10)/10;
+myPara1.textContent = 'Температура: '+t1+"°C";
+myPara2.textContent = 'Відчувається як: '+t2+"°C";
+myPara3.textContent = 'Вітер: '+jsonObj.wind.speed+" м/сек";
+myPara4.textContent = 'Тиск: '+jsonObj.main.pressure+" Па";
+//Збираємо що вийшло, і документ відображається
+myArticle.appendChild(myPara1);
+myArticle.appendChild(myPara2);
+myArticle.appendChild(myPara3);
+myArticle.appendChild(myPara4);
+section.appendChild(myArticle);
+}
+//-->
+</script>
+</body>
+</html>
