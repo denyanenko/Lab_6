@@ -64,7 +64,7 @@ myPara1.textContent = 'Температура: '+t1+"°C";
 myPara2.textContent = 'Відчувається як: '+t2+"°C";
 myPara3.textContent = 'Вітер: '+jsonObj.wind.speed+" м/сек";
 myPara4.textContent = 'Тиск: '+jsonObj.main.pressure+" Па";
-Img.src=`http://openweathermap.org/img/wn/${jsonObj.weather[0].icon}@2x.png`
+Img.src=`https://openweathermap.org/img/wn/${jsonObj.weather[0].icon}@2x.png`
 //Збираємо що вийшло, і документ відображається
 myArticle.appendChild(Img);
 myArticle.appendChild(myPara1);
