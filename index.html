@@ -56,6 +56,7 @@ var myPara1 = document.createElement('p');
 var myPara2 = document.createElement('p');
 var myPara3 = document.createElement('p');
 var myPara4 = document.createElement('p');
+var Img=document.createElement('img');
 //Переводимо у градуси Цельсія
 var t1=Math.round((jsonObj.main.temp-273.16)*10)/10;
 var t2=Math.round((jsonObj.main.feels_like-273.16)*10)/10;
@@ -63,7 +64,9 @@ myPara1.textContent = 'Температура: '+t1+"°C";
 myPara2.textContent = 'Відчувається як: '+t2+"°C";
 myPara3.textContent = 'Вітер: '+jsonObj.wind.speed+" м/сек";
 myPara4.textContent = 'Тиск: '+jsonObj.main.pressure+" Па";
+Img.src=`http://openweathermap.org/img/wn/${jsonObj.weather[0].icon}@2x.png`
 //Збираємо що вийшло, і документ відображається
+myArticle.appendChild(Img);
 myArticle.appendChild(myPara1);
 myArticle.appendChild(myPara2);
 myArticle.appendChild(myPara3);
